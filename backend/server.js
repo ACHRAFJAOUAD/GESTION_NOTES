@@ -1,6 +1,8 @@
 const express = require("express");
 const dotenv = require("dotenv");
+const authRoutes = require("./Routes/auth");
 const userRoutes = require("./Routes/users");
+const cors = require("cors");
 
 // Load environment variables
 dotenv.config();
@@ -12,9 +14,11 @@ require("./config/dbConnect")();
 const app = express();
 
 // Middleware
+app.use(cors());
 app.use(express.json());
 
 // Routes
+app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 
 // Server
