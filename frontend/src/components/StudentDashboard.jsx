@@ -1,24 +1,24 @@
 import React from "react";
 import { useAuth } from "../contexts/AuthContext.jsx";
+import Navbar from "../layouts/Navbar.jsx";
 
 function StudentDashboard() {
-  const { user, logout } = useAuth();
+  const { user } = useAuth();
   console.log(user);
-  const handleLogout = () => {
-    logout();
-    window.location.href = "/login";
-  };
+
   return (
     <div>
       {user ? (
-        <div>
-          <p>Welcome, {user.name}</p>
-          <p>Email, {user.email}</p>
-          <p>Role, {user.role}</p>
-          <button onClick={handleLogout}>Logout</button>
-        </div>
+        <>
+          <Navbar />
+          <div>
+            <p>Welcome, {user.name}</p>
+            <p>Email, {user.email}</p>
+            <p>Role, {user.role}</p>
+          </div>
+        </>
       ) : (
-        <p>Please login</p>
+        <p>Something went wrong !!</p>
       )}
     </div>
   );
