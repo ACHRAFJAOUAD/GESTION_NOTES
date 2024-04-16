@@ -10,6 +10,8 @@ const UserSchema = new mongoose.Schema(
       enum: ["admin", "teacher", "student"],
       default: "student",
     },
+    phone: { type: String },
+    pictureUrl: { type: String },
   },
   {
     timestamps: true,

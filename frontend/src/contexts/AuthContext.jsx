@@ -8,9 +8,12 @@ export const AuthProvider = ({ children }) => {
     return storedUser ? JSON.parse(storedUser) : null;
   });
   const login = (userData) => {
-    console.log(userData);
-    setUser(userData);
-    localStorage.setItem("users", JSON.stringify(userData));
+    try {
+      setUser(userData);
+      localStorage.setItem("users", JSON.stringify(userData));
+    } catch (error) {
+      console.error("Error storing user data in localStorage:", error);
+    }
   };
 
   const logout = () => {

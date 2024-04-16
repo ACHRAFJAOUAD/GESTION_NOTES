@@ -3,7 +3,7 @@ import Lottie from "lottie-react";
 import { NavLink } from "react-router-dom";
 import animationData from "../animation/landing_animation.json";
 import PreloadScene from "../animation/PreloadScene";
-import HomeNavbar from "../layouts/HomeNavbar";
+import HomeNavbar from "../layouts/navbar/HomeNavbar";
 
 function Home() {
   const [isLoading, setIsLoading] = useState(true);

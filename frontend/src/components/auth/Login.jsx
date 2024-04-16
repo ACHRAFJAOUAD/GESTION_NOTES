@@ -41,9 +41,9 @@ const Login = () => {
         }
       );
       console.log(userDetailsResponse.data);
-      const { role, name } = userDetailsResponse.data;
+      const { id, role, name } = userDetailsResponse.data;
 
-      login({ email, role, name });
+      login({ id, email, role, name });
 
       // Redirect based on role
       if (role === "teacher") {

@@ -1,13 +1,15 @@
 import React from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import "./App.css";
 
 import NotFound from "./pages/NotFound.jsx";
 import Login from "./components/auth/Login.jsx";
 import Home from "./pages/Home.jsx";
-import AdminDashboard from "./components/AdminDashboard.jsx";
-import TeacherDashboard from "./components/TeacherDashboard.jsx";
-import StudentDashboard from "./components/StudentDashboard.jsx";
+
+import Content from "./container/Content.jsx";
+import AdminRouter from "./router/AdminRouter.jsx";
+import TeacherRouter from "./router/TeacherRouter.jsx";
+import StudentRouter from "./router/StudentRouter.jsx";
 
 const App = () => {
   return (
@@ -15,10 +17,11 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/admin-dashboard" element={<AdminDashboard />} />
-        <Route path="/teacher-dashboard" element={<TeacherDashboard />} />
-        <Route path="/student-dashboard" element={<StudentDashboard />} />
-        <Route path="/*" element={<NotFound />} />
+
+        <Route path="/admin-dashboard/*" element={<AdminRouter />} />
+        <Route path="/teacher-dashboard/*" element={<TeacherRouter />} />
+        <Route path="/student-dashboard/*" element={<StudentRouter />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </>
   );
