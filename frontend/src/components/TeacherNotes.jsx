@@ -6,8 +6,12 @@ import {
   faEdit,
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
+import { useAuth } from "../contexts/AuthContext";
 
-const TeacherNotes = ({ teacherId }) => {
+const TeacherNotes = () => {
+  const { user } = useAuth();
+
+  const [teacherId, setTeacherId] = useState(user.id);
   const [subjects, setSubjects] = useState([]);
   const [selectedSubject, setSelectedSubject] = useState(null);
   const [classes, setClasses] = useState([]);
@@ -175,7 +179,156 @@ const TeacherNotes = ({ teacherId }) => {
           )}
         </div>
       )}
-      {/* Other sections remain the same */}
+      {selectedSubject && selectedClass && !addingNote && !selectedStudent && (
+        <div className="mt-8">
+          <div className="flex items-center mb-4">
+            <button
+              onClick={handleBackClick}
+              className="text-green-500 hover:text-green-300"
+            >
+              <FontAwesomeIcon icon={faArrowCircleLeft} /> Back
+            </button>
+          </div>
+          <div className="mt-8">
+            <h2 className="text-2xl font-bold mb-4 text-center">
+              Students of Class
+            </h2>
+            {/* Display students table */}
+            {students.length > 0 ? (
+              <table className="w-full border rounded-sm shadow-md">
+                <thead>
+                  <tr>
+                    <th className="px-4 py-2">ID</th>
+                    <th className="px-4 py-2">Name</th>
+                    <th className="px-4 py-2">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {students.map((student) => (
+                    <tr key={student._id}>
+                      <td className="border px-4 py-2">{student._id}</td>
+                      <td className="border px-4 py-2">{student.name}</td>
+                      <td className="border px-4 py-2">
+                        <button
+                          onClick={() => handleViewNotes(student._id)}
+                          className="bg-blue-500 hover:bg-blue-300 text-white font-bold py-1 px-2 rounded mr-2"
+                        >
+                          View Notes
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            ) : (
+              <div>No students in this class</div>
+            )}
+          </div>
+        </div>
+      )}
+      {selectedStudent && (
+        <div className="mt-8">
+          <div className="flex items-center mb-4">
+            <button
+              onClick={handleBackClick}
+              className="text-green-500 hover:text-green-300"
+            >
+              <FontAwesomeIcon icon={faArrowCircleLeft} /> Back
+            </button>
+          </div>
+          <h2 className="text-2xl font-bold mb-4 text-center">
+            Notes for Student{" "}
+            {students.find((student) => student._id === selectedStudent).name}
+          </h2>
+          <div className="mt-4 flex justify-between">
+            <button
+              onClick={handleAddNote}
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            >
+              Add Note
+            </button>
+          </div>
+          {notes.length > 0 ? (
+            <div>
+              <table className="table-auto">
+                <thead>
+                  <tr>
+                    <th>Note ID</th>
+                    <th>Note</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {notes.map((note) => (
+                    <tr key={note.id}>
+                      <td>{note.id}</td>
+                      <td>{note.text}</td>
+                      <td>
+                        <button className="text-blue-500 hover:text-blue-700 mr-2">
+                          <FontAwesomeIcon icon={faEdit} />
+                        </button>
+                        <button className="text-red-500 hover:text-red-700">
+                          <FontAwesomeIcon icon={faTrash} />
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          ) : (
+            <p>No notes available for this student</p>
+          )}
+        </div>
+      )}
+      {addingNote && (
+        <div className="mt-8">
+          <div className="flex items-center mb-4">
+            <button
+              onClick={handleBackClick}
+              className="text-green-500 hover:text-green-300"
+            >
+              <FontAwesomeIcon icon={faArrowCircleLeft} /> Back
+            </button>
+          </div>
+          <h2 className="text-2xl font-bold mb-4 text-center">Add Note</h2>
+          <div className="mt-4">
+            <h3 className="text-xl font-bold mb-2">Add Note</h3>
+            <div className="flex mb-4">
+              <label className="mr-2">Note Type:</label>
+              <select
+                value={noteType}
+                onChange={(e) => setNoteType(e.target.value)}
+                className="border border-gray-300 rounded px-2 py-1"
+              >
+                <option value="Normal">Normal</option>
+                <option value="Special">Special (EFM)</option>
+              </select>
+            </div>
+            <div className="flex mb-4">
+              <label className="mr-2">Note Content:</label>
+              <input
+                value={noteContent}
+                type="number"
+                onChange={(e) => setNoteContent(e.target.value)}
+                className="border border-gray-300 rounded px-2 py-1"
+              />
+            </div>
+            <button
+              onClick={handleSaveNote}
+              className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+            >
+              Save Note
+            </button>
+            <button
+              onClick={handleCancelAddNote}
+              className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

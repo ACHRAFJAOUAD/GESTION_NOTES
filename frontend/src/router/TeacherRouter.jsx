@@ -4,7 +4,7 @@ import Navbar from "../layouts/navbar/Navbar";
 import TeacherSidebar from "../layouts/sidebar/TeacherSidebar";
 import Content from "../container/Content";
 import Profile from "../components/Profile";
-import Notes from "../components/Notes";
+import TeacherNotes from "../components/TeacherNotes";
 
 const TeacherRouter = () => {
   return (
@@ -15,7 +15,7 @@ const TeacherRouter = () => {
         <Routes>
           <Route path="/" element={<Content />}>
             <Route index element={<Profile />} />
-            <Route path="notes" element={<Notes />} />
+            <Route path="notes" element={<TeacherNotes />} />
           </Route>
         </Routes>
       </div>

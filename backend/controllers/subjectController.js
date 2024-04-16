@@ -15,6 +15,21 @@ exports.getAllSubjects = asyncHandler(async (req, res) => {
   }
 });
 
+exports.getSubjectsByTeacherId = asyncHandler(async (req, res) => {
+  try {
+    const { teacherId } = req.params;
+
+    const subjects = await Subject.find({ teacherId })
+      .populate("classIds")
+      .populate("teacherId");
+
+    res.json(subjects);
+  } catch (error) {
+    console.error("Error fetching subjects:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 exports.createSubject = asyncHandler(async (req, res) => {
   try {
     const { name, duration, classes, teacherId } = req.body;
