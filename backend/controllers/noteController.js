@@ -3,19 +3,19 @@ const asyncHandler = require("express-async-handler");
 
 // Create a note
 exports.createNote = asyncHandler(async (req, res) => {
-  const { studentId, subjectId, noteNumber, isSpecialNote, score, totalScore } =
-    req.body;
-
   try {
-    const newNote = await Note.create({
-      studentId,
+    const { subjectId, studentId, normalNotes, specialNote } = req.body;
+
+    const note = new Note({
       subjectId,
-      noteNumber,
-      isSpecialNote,
-      score,
-      totalScore,
+      studentId,
+      normalNotes,
+      specialNote,
     });
-    res.status(201).json(newNote);
+
+    const savedNote = await note.save();
+
+    res.status(201).json({ message: "Note created successfully", savedNote });
   } catch (error) {
     console.error("Error creating note:", error);
     res.status(500).json({ message: "Internal server error" });
@@ -51,19 +51,22 @@ exports.getNotesBySubject = asyncHandler(async (req, res) => {
 
 // Update a note
 exports.updateNote = asyncHandler(async (req, res) => {
-  const { id } = req.params;
-  const { score, totalScore } = req.body;
-
   try {
-    const note = await Note.findByIdAndUpdate(
-      id,
-      { score, totalScore },
-      { new: true }
-    );
-    if (!note) {
+    const { normalNotes, specialNote } = req.body;
+
+    const note = await Note.findById(req.params.id);
+
+    if (note === null) {
       return res.status(404).json({ message: "Note not found" });
     }
-    res.status(200).json(note);
+
+    // Update the note fields
+    note.normalNotes = normalNotes;
+    note.specialNote = specialNote;
+
+    const updatedNote = await note.save();
+
+    res.status(200).json({ message: "Note updated successfully", updatedNote });
   } catch (error) {
     console.error("Error updating note:", error);
     res.status(500).json({ message: "Internal server error" });

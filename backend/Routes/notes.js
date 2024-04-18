@@ -9,7 +9,10 @@ router.post("/", noteController.createNote);
 router.get("/student/:studentId", noteController.getNotesByStudentId);
 
 // Get notes for a student related to a subject
-router.get("/subject/:subjectId", noteController.getNotesBySubject);
+router.get(
+  "/student/:studentId/subject/:subjectId",
+  noteController.getNotesBySubject
+);
 
 // Update a note
 router.put("/:id", noteController.updateNote);
