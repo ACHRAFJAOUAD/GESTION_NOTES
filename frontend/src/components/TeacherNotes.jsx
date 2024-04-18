@@ -126,10 +126,10 @@ const TeacherNotes = () => {
   const fetchNotesForStudent = (studentId, subjectId) => {
     console.log("id subject selected :", subjectId);
 
-    axios;
-    get(
-      `http://localhost:3001/api/notes/student/${studentId}/subject/${subjectId}`
-    )
+    axios
+      .get(
+        `http://localhost:3001/api/notes/student/${studentId}/subject/${subjectId}`
+      )
       .then((response) => {
         console.log("Notes students :", response.data);
 
