@@ -124,11 +124,14 @@ const Profile = () => {
   };
 
   return (
-    <div className="w-full py-16 px-8 shadow-2xl flex justify-center flex-col items-center">
+    <div className="w-full py-4 px-20 md:px-8 shadow-2xl flex flex-col items-center">
       <h1 className="my-4 text-center font-semibold text-3xl capitalize">
         Profile Details
       </h1>
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+      <form
+        onSubmit={handleSubmit}
+        className="w-full max-w-lg flex flex-col gap-4 items-center"
+      >
         <input
           type="file"
           accept="images/*"
@@ -137,7 +140,7 @@ const Profile = () => {
           hidden
         />
         <div
-          className="relative w-32 h-32 self-center cursor-pointer shadow-md overflow-hidden rounded-full mb-8"
+          className="relative w-32 h-32 cursor-pointer shadow-md overflow-hidden rounded-full mb-8"
           onClick={() => filePickerRef.current.click()}
         >
           {imageFileUploadProgress && (
@@ -176,14 +179,14 @@ const Profile = () => {
           />
         </div>
 
-        <div className="flex gap-4">
+        <div className="w-full flex flex-col md:flex-row gap-4">
           <input
             type="text"
             id="name"
             placeholder="Name"
             value={formData.name || ""}
             onChange={handleChange}
-            className="border border-gray-300 px-3 py-2 rounded-md shadow-md"
+            className="border border-gray-300 px-3 py-2 rounded-md shadow-md w-full md:w-auto" // Adjust width based on screen size
           />
           <input
             type="email"
@@ -191,7 +194,7 @@ const Profile = () => {
             placeholder="Email"
             readOnly
             value={formData.email || ""}
-            className="border border-gray-300 px-3 py-2 rounded-md shadow-md"
+            className="border border-gray-300 px-3 py-2 rounded-md shadow-md w-full md:w-auto" // Adjust width based on screen size
           />
         </div>
 
@@ -201,7 +204,7 @@ const Profile = () => {
           placeholder="Phone Number (Optional)"
           value={formData.phone || ""}
           onChange={handleChange}
-          className="border border-gray-300 px-3 py-2 rounded-md shadow-md"
+          className="border border-gray-300 px-3 py-2 rounded-md shadow-md w-full" // Full width on all screen sizes
         />
 
         <button

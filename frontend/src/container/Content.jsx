@@ -19,7 +19,7 @@ const Content = () => {
   }
 
   return (
-    <div className=" p-10 ">
+    <div className="p-10  md:px-20 lg:px-32 xl:px-40 overflow-x-scroll lg:overflow-hidden">
       <Outlet />
     </div>
   );

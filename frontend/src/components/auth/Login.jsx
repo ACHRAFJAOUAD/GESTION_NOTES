@@ -11,6 +11,7 @@ const Login = () => {
   const [error, setError] = useState("");
 
   const { login } = useAuth();
+
   const handleLoginClick = async () => {
     try {
       // Validate email and password
@@ -28,7 +29,6 @@ const Login = () => {
       );
 
       const { token } = response.data;
-      console.log(token);
       localStorage.setItem("token", token);
 
       // Fetch user details
@@ -40,9 +40,8 @@ const Login = () => {
           },
         }
       );
-      console.log(userDetailsResponse.data);
-      const { id, role, name } = userDetailsResponse.data;
 
+      const { id, role, name } = userDetailsResponse.data;
       login({ id, email, role, name });
 
       // Redirect based on role
@@ -53,10 +52,9 @@ const Login = () => {
       } else if (role === "admin") {
         window.location.href = "/admin-dashboard";
       } else {
-        alert("Invalid credentials");
+        setError("Invalid credentials");
       }
     } catch (err) {
-      console.log(err);
       setError("Invalid email or password");
     }
   };
@@ -67,23 +65,24 @@ const Login = () => {
   };
 
   return (
-    <div className="h-screen flex justify-center items-center">
-      <div className="bg-white shadow-md rounded-md p-6 md:p-12 md:flex md:space-x-6">
+    <div className="min-h-screen flex justify-center items-center bg-gray-100">
+      <div className="max-w-3xl w-full bg-white shadow-md rounded-md p-6 md:p-12 flex flex-col md:flex-row space-y-6 md:space-y-0 md:space-x-6">
         {/* Left Box */}
-        <div className=" w-96 bg-green-500 text-white rounded-md p-6 flex flex-col items-center justify-center">
-          <div className="mb-3">
+        <div className="w-full md:w-1/2 bg-green-500 text-white rounded-md p-6 flex flex-col items-center justify-center">
+          <div className="mb-3  md:w-auto">
             <Lottie animationData={LoginData} />
           </div>
+
           <p className="text-3xl font-semibold">Be Verified</p>
-          <p className="text-sm md:text-base">
+          <p className="text-sm md:text-base text-center">
             Join experienced Educators on this platform.
           </p>
         </div>
         {/* Right Box */}
-        <div className=" w-1/2 justify-center items-center   flex flex-col">
+        <div className="w-full md:w-1/2 flex flex-col">
           <div className="mb-6 flex flex-col justify-center items-center">
-            <h2 className="text-3xl font-semibold mb-2">Welcome</h2>
-            <p>We are happy to have you Here.</p>
+            <h2 className="text-3xl font-semibold mb-2 ">Welcome</h2>
+            <p className="text-center">We are happy to have you Here.</p>
           </div>
           <div className="mb-4">
             <input
@@ -92,7 +91,7 @@ const Login = () => {
               id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className=" bg-gray-100 w-full  py-3 px-4 rounded-lg mb-3"
+              className="bg-gray-100 w-full py-3 px-4 rounded-lg mb-3"
               placeholder="Email address"
               required
             />
@@ -102,18 +101,18 @@ const Login = () => {
               id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className=" bg-gray-100 w-full md:text-lg py-3 px-4 rounded-lg"
+              className="bg-gray-100 w-full py-3 px-4 rounded-lg"
               placeholder="Password"
               required
             />
           </div>
           {error && <p className="text-red-500 mb-4">{error}</p>}
-          <div className="flex space-x- space-x-48   mb-6">
+          <div className="flex justify-between items-center mb-6">
             <label htmlFor="remember" className="flex items-center">
               <input
                 type="checkbox"
                 id="remember"
-                className=" border-gray-300"
+                className="border-gray-300"
               />
               <span className="ml-2 text-sm text-gray-600">Remember Me</span>
             </label>
@@ -125,10 +124,9 @@ const Login = () => {
               Forgot Password?
             </a>
           </div>
-
           <button
             onClick={handleLoginClick}
-            className="text-green-500 hover:bg-green-500 hover:text-white border-green-500 w-80 border py-3 rounded-lg mb-4"
+            className="text-green-500 hover:bg-green-500 hover:text-white border-green-500 w-full py-3 border rounded-lg"
           >
             Login
           </button>

@@ -6,23 +6,29 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUser,
   faMarker,
-  faChampagneGlasses,
   faBook,
   faUserGraduate,
   faUserDoctor,
   faTable,
 } from "@fortawesome/free-solid-svg-icons";
 
-const AdminSidebar = () => {
+const AdminSidebar = ({ sidebarOpen }) => {
   return (
-    <div className="sidebar bg-gray-100 text-gray-600 w-1/4 px-6 h-screen left-0 z-1 flex flex-col justify-between shadow-2xl">
+    <div
+      className={`sidebar bg-gray-100 text-gray-600 w-64 h-screen fixed top-0 left-0 z-50 ${
+        sidebarOpen ? "block" : "hidden"
+      } transition-all duration-300`}
+    >
       <div>
-        <div className="p-4 flex justify-center  items-center">
+        <div className="p-4 flex justify-center flex-col  items-center">
           <img
             src="/IconPage.jpg"
             alt="User Avatar"
             className="h-12 w-12 rounded-full "
           />
+          <h1>
+            Academy<span className="text-green-500">Vista</span>{" "}
+          </h1>
         </div>
         <ul className="space-y-6 pt-16 ">
           <li>

@@ -193,40 +193,42 @@ const StudentCrud = () => {
 
       {/* Display students table */}
       {!showForm && students.length > 0 ? (
-        <table className="w-full border rounded-sm">
-          <thead>
-            <tr>
-              <th className="px-4 py-2">Name</th>
-              <th className="px-4 py-2">Email</th>
-              <th className="px-4 py-2">Edit</th>
-              <th className="px-4 py-2">Delete</th>
-            </tr>
-          </thead>
-          <tbody>
-            {students.map((student) => (
-              <tr key={student._id}>
-                <td className="border px-4 py-2">{student.name}</td>
-                <td className="border px-4 py-2">{student.email}</td>
-                <td className="border px-4 py-2">
-                  <button
-                    onClick={() => handleEditStudent(student._id)}
-                    className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 px-2 rounded mr-2"
-                  >
-                    Edit
-                  </button>
-                </td>
-                <td className="border px-4 py-2">
-                  <button
-                    onClick={() => handleDeleteStudent(student._id)}
-                    className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded mr-2"
-                  >
-                    Delete
-                  </button>
-                </td>
+        <div className="overflow-x-auto">
+          <table className="w-full border rounded-sm">
+            <thead>
+              <tr>
+                <th className="px-4 py-2">Name</th>
+                <th className="px-4 py-2">Email</th>
+                <th className="px-4 py-2">Edit</th>
+                <th className="px-4 py-2">Delete</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {students.map((student) => (
+                <tr key={student._id}>
+                  <td className="border px-4 py-2">{student.name}</td>
+                  <td className="border px-4 py-2">{student.email}</td>
+                  <td className="border px-4 py-2">
+                    <button
+                      onClick={() => handleEditStudent(student._id)}
+                      className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 px-2 rounded mr-2"
+                    >
+                      Edit
+                    </button>
+                  </td>
+                  <td className="border px-4 py-2">
+                    <button
+                      onClick={() => handleDeleteStudent(student._id)}
+                      className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded mr-2"
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       ) : (
         !showForm && <div>No students available</div>
       )}

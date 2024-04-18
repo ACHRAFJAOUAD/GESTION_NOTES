@@ -339,15 +339,15 @@ const Classes = () => {
       {/* Sector */}
       {selectedSector === null && (
         <div>
-          <div className="flex justify-between items-center mb-4">
+          <div className="flex justify-between items-center flex-col mb-4">
             <h1 className="text-2xl font-bold">Sectors</h1>
-            <div className="flex items-center">
+            <div className="flex items-center  flex-col">
               <input
                 type="text"
                 placeholder="Enter sector name"
                 value={newSectorName}
                 onChange={(e) => setNewSectorName(e.target.value)}
-                className="mr-2 px-2 py-1 border border-gray-300 rounded"
+                className="mr-2 m-3 px-2 py-1 border border-gray-300 rounded"
               />
               <button
                 onClick={handleAddSector}
@@ -389,20 +389,23 @@ const Classes = () => {
               <FontAwesomeIcon icon={faArrowCircleLeft} /> Back
             </button>
           </div>
-          <div className="flex items-center mb-4">
-            <input
-              type="text"
-              placeholder="Enter field name"
-              value={newFieldName}
-              onChange={(e) => setNewFieldName(e.target.value)}
-              className="mr-2 px-2 py-1 border border-gray-300 rounded"
-            />
-            <button
-              onClick={handleAddField}
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-            >
-              Add Field
-            </button>
+          <div className="flex justify-between items-center flex-col mb-4">
+            <h1 className="text-2xl font-bold">Fields</h1>
+            <div className="flex items-center  flex-col">
+              <input
+                type="text"
+                placeholder="Enter field name"
+                value={newFieldName}
+                onChange={(e) => setNewFieldName(e.target.value)}
+                className="mr-2 m-3 px-2 py-1 border border-gray-300 rounded"
+              />
+              <button
+                onClick={handleAddField}
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              >
+                Add Field
+              </button>
+            </div>
           </div>
         </div>
       )}
@@ -439,20 +442,23 @@ const Classes = () => {
               <FontAwesomeIcon icon={faArrowCircleLeft} /> Back
             </button>
           </div>
-          <div className="flex items-center mb-4">
-            <input
-              type="text"
-              placeholder="Enter class name"
-              value={newClassName}
-              onChange={(e) => setNewClassName(e.target.value)}
-              className="mr-2 px-2 py-1 border border-gray-300 rounded"
-            />
-            <button
-              onClick={handleAddClass}
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-            >
-              Add Class
-            </button>
+          <div className="flex justify-between items-center flex-col mb-4">
+            <h1 className="text-2xl font-bold">Classes</h1>
+            <div className="flex items-center  flex-col">
+              <input
+                type="text"
+                placeholder="Enter class name"
+                value={newClassName}
+                onChange={(e) => setNewClassName(e.target.value)}
+                className="mr-2 m-3 px-2 py-1 border border-gray-300 rounded"
+              />
+              <button
+                onClick={handleAddClass}
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              >
+                Add Class
+              </button>
+            </div>
           </div>
         </div>
       )}

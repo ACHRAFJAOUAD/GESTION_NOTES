@@ -22,13 +22,13 @@ exports.createNote = asyncHandler(async (req, res) => {
   }
 });
 
-// Get notes by student ID
-exports.getNotesByStudentId = asyncHandler(async (req, res) => {
-  const { studentId } = req.params;
-
+// fetch notes for a specific subject
+exports.getNotesForSubject = asyncHandler(async (req, res) => {
   try {
-    const notes = await Note.find({ studentId });
-    res.status(200).json(notes);
+    const subjectId = req.params.subjectId;
+    // Fetch notes with the given subjectId
+    const notes = await Note.find({ subjectId: subjectId });
+    res.json(notes);
   } catch (error) {
     console.error("Error fetching notes:", error);
     res.status(500).json({ message: "Internal server error" });

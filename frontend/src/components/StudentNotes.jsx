@@ -72,14 +72,16 @@ const StudentNotes = () => {
           {loading ? (
             <p>Loading...</p>
           ) : (
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-2 gap-4">
               {subjects.map((subject) => (
                 <div
                   key={subject._id}
-                  className="border border-gray-300 p-4 cursor-pointer shadow-md"
+                  className="border border-gray-300 p-4 cursor-pointer shadow-md overflow-hidden"
                   onClick={() => handleSubjectClick(subject._id)}
                 >
-                  <p className="text-lg font-semibold">{subject.name}</p>
+                  <p className="text-lg font-semibold truncate">
+                    {subject.name}
+                  </p>
                 </div>
               ))}
             </div>
@@ -97,35 +99,56 @@ const StudentNotes = () => {
             Notes of {subjects.find((sub) => sub._id === selectedSubject)?.name}
           </h2>
 
-          {noNotes ? (
-            <p className="text-center">There are no notes available.</p>
-          ) : loadingNotes ? (
-            <p>Loading notes...</p>
-          ) : (
-            <table className="w-full">
-              <thead>
-                <tr>
-                  <th>Note 1</th>
-                  <th>Note 2</th>
-                  <th>Note 3</th>
-                  <th>Note 4</th>
-                  <th>EFM</th>
-                  <th>Final Note</th>
-                </tr>
-              </thead>
-              <tbody>
-                {notes.map((note) => (
-                  <tr key={note._id}>
-                    <td>{note.noteNumber === 1 ? note.content : ""}</td>
-                    <td>{note.noteNumber === 2 ? note.content : ""}</td>
-                    <td>{note.noteNumber === 3 ? note.content : ""}</td>
-                    <td>{note.noteNumber === 4 ? note.content : ""}</td>
-                    <td>{note.isSpecialNote ? note.content : ""}</td>
-                    <td>{note.noteNumber === 5 ? note.content : ""}</td>
+          {/* Notes table */}
+          {notes.length > 0 ? (
+            <div>
+              <table className="w-full border rounded-sm shadow-md mt-4">
+                <thead>
+                  <tr>
+                    <th className="px-4 py-2">Note 1</th>
+                    <th className="px-4 py-2">Note 2</th>
+                    <th className="px-4 py-2">Note 3</th>
+                    <th className="px-4 py-2">Note 4</th>
+
+                    <td className="px-4 py-2">EFM</td>
+                    <th className="px-4 py-2">Average Note</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {notes.map((note) => (
+                    <tr key={note._id} className="text-center">
+                      {[...Array(4)].map((_, i) => (
+                        <td key={i} className="border px-4 py-2">
+                          {i < note.normalNotes.length
+                            ? note.normalNotes[i]
+                            : ""}
+                        </td>
+                      ))}
+                      {/* Render EFM (special note) */}
+                      <td className="border px-4 py-2">{note.specialNote}</td>
+                      <td className="border px-4 py-2">
+                        {/* Calculate and display the average note */}
+                        {notes.reduce((acc, note) => {
+                          if (note.noteType === "Special") {
+                            return acc + note.specialNote;
+                          } else {
+                            return (
+                              acc +
+                              note.normalNotes.reduce(
+                                (sum, val) => sum + val,
+                                0
+                              )
+                            );
+                          }
+                        }, 0) / notes.length}
+                      </td>{" "}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          ) : (
+            <p>Notes not available </p>
           )}
         </div>
       )}

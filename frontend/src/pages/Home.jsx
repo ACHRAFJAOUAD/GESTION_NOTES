@@ -18,37 +18,36 @@ function Home() {
   }, []);
 
   return (
-    <div className="h-screen  overflow-hidden flex items-center justify-center">
+    <div className="min-h-screen overflow-hidden flex flex-col">
       {isLoading ? (
         <PreloadScene />
       ) : (
-        <div className="h-screen">
+        <div className="flex flex-grow flex-col">
           <HomeNavbar />
-          <div className="flex items-center justify-center mx-auto px-6 py-12">
-            <div className="flex flex-col space-y-8 ml-10">
-              <h1 className="text-4xl font-bold">School Management System</h1>
-              <div>
-                <div className="flex items-center">
-                  {" "}
-                  <p className="text-lg  text-gray-600 leading-relaxed ">
+          <div className="flex-grow flex items-center justify-center mx-auto px-6 py-12">
+            <div className="flex flex-col md:flex-row space-y-8 md:space-y-0 md:ml-10">
+              <div className="md:w-1/2 mt-8 md:mt-16 md:ml-10">
+                <h1 className="text-4xl font-bold">School Management System</h1>
+                <div>
+                  <p className="text-lg text-gray-600 leading-relaxed">
                     AcademyVista is Management System for schools, colleges, and
                     universities, optimizing operations and enhancing
-                    educational outcomes.Empowering administrators with
+                    educational outcomes. Empowering administrators with
                     comprehensive tools to streamline operations.
                   </p>
                 </div>
+                <div className="flex justify-center mt-4 md:mt-8">
+                  <NavLink
+                    to="/Login"
+                    className="inline-block px-6 py-3 text-lg font-bold text-green-500 bg-white border border-green-500 rounded-full hover:text-white hover:bg-green-500 transition duration-300 ease-in-out"
+                  >
+                    Explore More
+                  </NavLink>
+                </div>
               </div>
-              <div className="flex justify-center">
-                <NavLink
-                  to="/Login"
-                  className="inline-block px-6 py-3 mt-4 text-lg font-bold text-green-500 bg-white border border-green-500 rounded-full hover:text-white hover:bg-green-500 transition duration-300 ease-in-out"
-                >
-                  Explore More
-                </NavLink>
+              <div className="md:w-1/2 flex justify-center">
+                <Lottie animationData={animationData} />
               </div>
-            </div>
-            <div className="flex-shrink-0 ml-12">
-              <Lottie animationData={animationData} />
             </div>
           </div>
         </div>

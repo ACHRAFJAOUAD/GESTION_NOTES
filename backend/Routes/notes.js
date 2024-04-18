@@ -5,8 +5,8 @@ const noteController = require("../controllers/noteController");
 // Create a note
 router.post("/", noteController.createNote);
 
-// Get notes by student ID
-router.get("/student/:studentId", noteController.getNotesByStudentId);
+// Route to fetch notes for a specific subject
+router.get("/subject/:subjectId", noteController.getNotesForSubject);
 
 // Get notes for a student related to a subject
 router.get(

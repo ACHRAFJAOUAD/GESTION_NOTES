@@ -43,9 +43,9 @@ const TeacherNotes = () => {
   useEffect(() => {
     if (selectedStudent && selectedSubject) {
       console.log(
-        "the selected student and the  selected subject :",
+        "the selected student and the  selected subject id :",
         selectedStudent,
-        selectedSubject
+        selectedSubject._id
       );
       fetchNotesForStudent(selectedStudent, selectedSubject._id);
     }
@@ -73,6 +73,10 @@ const TeacherNotes = () => {
         setClasses([]);
         setLoading(false);
       });
+
+    if (selectedStudent) {
+      fetchNotesForStudent(selectedStudent, subjectId);
+    }
   };
 
   const handleBackClick = () => {
@@ -125,6 +129,12 @@ const TeacherNotes = () => {
 
   const fetchNotesForStudent = (studentId, subjectId) => {
     console.log("id subject selected :", subjectId);
+    if (!selectedSubject || !studentId) {
+      console.error("Selected subject or student ID is undefined");
+      return;
+    }
+    subjectId = subjectId || selectedSubject._id;
+    console.log("Subject ID in fetchNotesForStudent:", subjectId);
 
     axios
       .get(
@@ -158,6 +168,7 @@ const TeacherNotes = () => {
     setSelectedStudent(studentId);
     if (selectedSubject) {
       const subjectId = selectedSubject._id;
+      console.log("subject id from view:", subjectId);
       fetchNotesForStudent(studentId, subjectId);
       setAddingNote(false);
     } else {
@@ -166,6 +177,11 @@ const TeacherNotes = () => {
   };
 
   const handleAddNote = () => {
+    if (!selectedStudent || !selectedSubject || !noteType) {
+      console.error("Invalid input data");
+      return;
+    }
+
     setAddingNote(true);
     setEditMode(false);
     setEditNoteId(null);
@@ -237,6 +253,10 @@ const TeacherNotes = () => {
   };
 
   const handleEditNote = (noteId) => {
+    if (!selectedSubject) {
+      console.error("No subject selected");
+      return;
+    }
     const noteToEdit = notes.find((note) => note._id === noteId);
 
     if (!noteToEdit) {
@@ -260,7 +280,7 @@ const TeacherNotes = () => {
 
     // Set specialNote state if it exists
     if (noteToEdit.specialNote) {
-      setSpecialNote(noteToEdit.specialNote);
+      setSpecialNote(noteToEdit.specialNote || "");
     } else {
       // Set specialNote state to empty string if it doesn't exist
       setSpecialNote();
@@ -276,6 +296,10 @@ const TeacherNotes = () => {
   };
 
   const handleDeleteNote = (noteId) => {
+    if (!selectedSubject) {
+      console.error("No subject selected");
+      return;
+    }
     const confirmDelete = window.confirm(
       "Are you sure you want to delete this note?"
     );
@@ -285,7 +309,7 @@ const TeacherNotes = () => {
         .delete(`http://localhost:3001/api/notes/${noteId}`)
         .then((response) => {
           console.log("Note deleted successfully");
-          fetchNotesForStudent(selectedStudent);
+          fetchNotesForStudent(selectedStudent, selectedSubject._id);
         })
         .catch((error) => {
           console.error("Error deleting note:", error);
@@ -301,14 +325,14 @@ const TeacherNotes = () => {
       {!selectedSubject && !selectedClass && (
         <>
           <h1 className="text-2xl font-bold mb-4 text-center">Subjects</h1>
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid grid-cols-2 gap-4">
             {subjects.map((subject) => (
               <div
                 key={subject._id}
-                className="border border-gray-300 p-4 cursor-pointer shadow-md"
+                className="border border-gray-300 p-4 cursor-pointer shadow-md overflow-hidden"
                 onClick={() => handleLessonClick(subject)}
               >
-                <p className="text-lg font-semibold">{subject.name}</p>
+                <p className="text-lg font-semibold truncate">{subject.name}</p>
               </div>
             ))}
           </div>
