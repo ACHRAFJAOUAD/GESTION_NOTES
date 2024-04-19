@@ -1,14 +1,17 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 
 function Navbar({ toggleSidebar }) {
   const { user, logout } = useAuth();
+
+  const nav = useNavigate();
+
   const handleLogout = () => {
     logout();
-    window.location.href = "/login";
+    nav("/login");
   };
 
   return (
