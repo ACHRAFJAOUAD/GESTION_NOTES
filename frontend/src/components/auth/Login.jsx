@@ -14,6 +14,10 @@ const Login = () => {
   const nav = useNavigate();
   const { login } = useAuth();
 
+  const apiBaseUrl = "http://localhost:3001";
+
+  console.log(apiBaseUrl);
+
   const handleLoginClick = async () => {
     try {
       // Validate email and password
@@ -22,26 +26,20 @@ const Login = () => {
         return;
       }
 
-      const response = await axios.post(
-        "http://localhost:3001/api/auth/login",
-        {
-          email,
-          password,
-        }
-      );
+      const response = await axios.post(`${apiBaseUrl}/api/auth/login`, {
+        email,
+        password,
+      });
 
       const { token } = response.data;
       localStorage.setItem("token", token);
 
       // Fetch user details
-      const userDetailsResponse = await axios.get(
-        "http://localhost:3001/api/users",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const userDetailsResponse = await axios.get(`${apiBaseUrl}/api/users`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       const { id, role, name } = userDetailsResponse.data;
       login({ id, email, role, name });
@@ -66,7 +64,7 @@ const Login = () => {
   };
 
   const handleBackClick = () => {
-    window.location.href = "/";
+    nav("/");
   };
 
   return (

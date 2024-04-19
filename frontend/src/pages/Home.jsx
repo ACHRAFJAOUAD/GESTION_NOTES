@@ -18,7 +18,7 @@ function Home() {
   }, []);
 
   return (
-    <div className="h-screen overflow-hidden flex flex-col">
+    <div className="h-screen lg:overflow-hidden overflow-y-scroll  flex flex-col">
       {isLoading ? (
         <PreloadScene />
       ) : (
