@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import Lottie from "lottie-react";
 import ResetPasswordData from "../animation/reset_password.json";
 import emailjs from "@emailjs/browser";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -18,9 +18,9 @@ function ResetPassword() {
   const [isValid, setIsValid] = useState(true);
   const [isSending, setIsSending] = useState(false);
 
-  const handleBackClick = () => {
-    window.location.href = "/login";
-  };
+  // const handleBackClick = () => {
+  //   window.location.href = "/login";
+  // };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -159,12 +159,18 @@ function ResetPassword() {
                 Send
               </button>
               <ToastContainer onClose={handleToastClose} />
-              <button
+              <NavLink
+                to="/Login"
+                className=" mb-4 bg-gray-400 text-white hover:text-gray-400 hover:bg-white border-gray-500 py-3 border rounded-lg w-full"
+              >
+                back
+              </NavLink>
+              {/* <button
                 onClick={handleBackClick}
                 className=" mb-4 bg-gray-400 text-white hover:text-gray-400 hover:bg-white border-gray-500 py-3 border rounded-lg w-full"
               >
                 Back
-              </button>
+              </button> */}
             </div>
           </form>
         </div>
