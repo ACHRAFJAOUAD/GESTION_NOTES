@@ -1,0 +1,28 @@
+{
+  "routes": [
+    {
+      "src": "/",
+      "dest": "/"
+    },
+    {
+      "src": "/login",
+      "dest": "/"
+    },
+    {
+      "src": "/reset-password",
+      "dest": "/"
+    },
+    {
+      "src": "/admin-dashboard",
+      "dest": "/"
+    },
+    {
+      "src": "/teacher-dashboard",
+      "dest": "/"
+    },
+    {
+      "src": "/student-dashboard",
+      "dest": "/"
+    }
+  ]
+}
