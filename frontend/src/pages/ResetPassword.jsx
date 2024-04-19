@@ -18,9 +18,7 @@ function ResetPassword() {
   const [isValid, setIsValid] = useState(true);
   const [isSending, setIsSending] = useState(false);
 
-  // const handleBackClick = () => {
-  //   window.location.href = "/login";
-  // };
+  
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -159,18 +157,13 @@ function ResetPassword() {
                 Send
               </button>
               <ToastContainer onClose={handleToastClose} />
-              <NavLink
-                to="/Login"
-                className=" mb-4 bg-gray-400 text-white hover:text-gray-400 hover:bg-white border-gray-500 py-3 border rounded-lg w-full"
-              >
-                back
+
+              <NavLink to="/Login">
+                <button className=" mb-4 bg-gray-400 text-white hover:text-gray-400 hover:bg-white border-gray-500 py-3 border rounded-lg w-full">
+                  back
+                </button>
               </NavLink>
-              {/* <button
-                onClick={handleBackClick}
-                className=" mb-4 bg-gray-400 text-white hover:text-gray-400 hover:bg-white border-gray-500 py-3 border rounded-lg w-full"
-              >
-                Back
-              </button> */}
+             
             </div>
           </form>
         </div>
