@@ -37,6 +37,9 @@ app.use((err, req, res, next) => {
   res.status(err.statusCode || 500).json({ message: err.message });
 });
 
+app.use("/", (req, res) => {
+  res.send("Welcome to the API!");
+});
 // Server
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
