@@ -10,6 +10,7 @@ import Content from "./container/Content.jsx";
 import AdminRouter from "./router/AdminRouter.jsx";
 import TeacherRouter from "./router/TeacherRouter.jsx";
 import StudentRouter from "./router/StudentRouter.jsx";
+import ResetPassword from "./pages/ResetPassword.jsx";
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
 
         <Route path="/admin-dashboard/*" element={<AdminRouter />} />
         <Route path="/teacher-dashboard/*" element={<TeacherRouter />} />

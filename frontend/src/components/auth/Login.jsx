@@ -4,12 +4,15 @@ import axios from "axios";
 
 import LoginData from "../../animation/login.json";
 import { useAuth } from "../../contexts/AuthContext.jsx";
+import { useNavigate } from "react-router-dom";
+
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
+  const nav = useNavigate();
   const { login } = useAuth();
 
   const handleLoginClick = async () => {
@@ -60,8 +63,11 @@ const Login = () => {
   };
 
   const handleForgotPasswordClick = () => {
-    // Handle forgot password
-    alert("Forgot password clicked!");
+    nav("/reset-password");
+  };
+
+  const handleBackClick = () => {
+    window.location.href = "/";
   };
 
   return (
@@ -126,9 +132,15 @@ const Login = () => {
           </div>
           <button
             onClick={handleLoginClick}
-            className="text-green-500 hover:bg-green-500 hover:text-white border-green-500 w-full py-3 border rounded-lg"
+            className=" mb-4 text-green-500 hover:bg-green-500 hover:text-white border-green-500 w-full py-3 border rounded-lg"
           >
             Login
+          </button>
+          <button
+            onClick={handleBackClick}
+            className=" bg-gray-400 text-white hover:text-gray-400 hover:bg-white border-gray-500 py-3 border rounded-lg w-full"
+          >
+            Back
           </button>
         </div>
       </div>
