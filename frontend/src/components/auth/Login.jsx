@@ -6,7 +6,6 @@ import LoginData from "../../animation/login.json";
 import { useAuth } from "../../contexts/AuthContext.jsx";
 import { useNavigate } from "react-router-dom";
 
-
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -49,11 +48,11 @@ const Login = () => {
 
       // Redirect based on role
       if (role === "teacher") {
-        window.location.href = "/teacher-dashboard";
+        nav("/teacher-dashboard");
       } else if (role === "student") {
-        window.location.href = "/student-dashboard";
+        nav("/student-dashboard");
       } else if (role === "admin") {
-        window.location.href = "/admin-dashboard";
+        nav("/admin-dashboard");
       } else {
         setError("Invalid credentials");
       }
