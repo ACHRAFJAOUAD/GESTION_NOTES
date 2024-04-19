@@ -47,7 +47,7 @@ exports.uploadProfilePicture = asyncHandler(async (req, res) => {
       return res.status(400).json({ message: "No picture uploaded" });
     }
 
-    const uploadPath = "backend/public/uploads/profile-pictures";
+    const uploadPath = "public/uploads/profile-pictures";
 
     if (!fs.existsSync(uploadPath)) {
       fs.mkdirSync(uploadPath, { recursive: true });
