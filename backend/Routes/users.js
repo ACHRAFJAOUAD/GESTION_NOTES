@@ -14,11 +14,8 @@ router.get(
   // authMiddleware.verifyToken,
   userController.getTeachersByRole
 );
-router.get(
-  "/",
-  //  authMiddleware.verifyToken,
-  userController.getUserRole
-);
+router.get("/", authMiddleware.verifyToken, userController.getUserRole);
+
 router.put(
   "/",
   //  authMiddleware.verifyToken,
