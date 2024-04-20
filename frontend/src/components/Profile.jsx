@@ -164,7 +164,7 @@ const Profile = () => {
           <img
             src={
               formData.pictureUrl
-                ? `http://localhost:3001/images/${formData.pictureUrl}`
+                ? `${apiBaseUrl}/images/${formData.pictureUrl}`
                 : "/user.png"
             }
             alt="user_picture"
@@ -183,7 +183,7 @@ const Profile = () => {
             placeholder="Name"
             value={formData.name || ""}
             onChange={handleChange}
-            className="border border-gray-300 px-3 py-2 rounded-md shadow-md w-full md:w-auto" // Adjust width based on screen size
+            className="border border-gray-300 px-3 py-2 rounded-md shadow-md w-full md:w-auto"
           />
           <input
             type="email"
@@ -191,7 +191,7 @@ const Profile = () => {
             placeholder="Email"
             readOnly
             value={formData.email || ""}
-            className="border border-gray-300 px-3 py-2 rounded-md shadow-md w-full md:w-auto" // Adjust width based on screen size
+            className="border border-gray-300 px-3 py-2 rounded-md shadow-md w-full md:w-auto"
           />
         </div>
 
@@ -201,7 +201,7 @@ const Profile = () => {
           placeholder="Phone Number (Optional)"
           value={formData.phone || ""}
           onChange={handleChange}
-          className="border border-gray-300 px-3 py-2 rounded-md shadow-md w-full" // Full width on all screen sizes
+          className="border border-gray-300 px-3 py-2 rounded-md shadow-md w-full"
         />
 
         <button
