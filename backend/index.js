@@ -21,7 +21,7 @@ const app = express();
 // Middleware
 app.use(cors());
 app.use(express.json());
-app.use("/images", express.static("public/uploads/profile-pictures"));
+app.use("/api/images", express.static("public/uploads/profile-pictures"));
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
@@ -38,7 +38,7 @@ app.use((err, req, res, next) => {
 });
 
 app.use("/", (req, res) => {
-  res.send("Welcome to the API!");
+  res.send("Welcome to the Gestion Notes Site Web!");
 });
 // Server
 const PORT = process.env.PORT || 3001;
