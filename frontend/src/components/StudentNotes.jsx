@@ -15,11 +15,14 @@ const StudentNotes = () => {
   const [loadingNotes, setLoadingNotes] = useState(false);
   const [noNotes, setNoNotes] = useState(false);
 
+  const apiBaseUrl =
+    "https://gestion-notes-backend.vercel.app" || "http://localhost:3001";
+
   useEffect(() => {
     const fetchStudentSubjects = async () => {
       try {
         setLoading(true);
-        const response = await axios.get("http://localhost:3001/api/subjects");
+        const response = await axios.get(`${apiBaseUrl}/api/subjects`);
         const subjectsData = response.data;
         const studentSubjects = subjectsData.filter((subject) =>
           subject.classIds.some((classId) =>
@@ -41,7 +44,7 @@ const StudentNotes = () => {
     try {
       setLoadingNotes(true);
       const response = await axios.get(
-        `http://localhost:3001/api/notes/subject/${subjectId}`
+        `${apiBaseUrl}/api/notes/subject/${subjectId}`
       );
       const notesData = response.data;
       setNotes(notesData);

@@ -21,6 +21,9 @@ const Classes = () => {
   const [addingStudent, setAddingStudent] = useState(false);
   const [loading, setLoading] = useState(true);
 
+  const apiBaseUrl =
+    "https://gestion-notes-backend.vercel.app" || "http://localhost:3001";
+
   useEffect(() => {
     fetchSectors();
     fetchStudents();
@@ -42,7 +45,7 @@ const Classes = () => {
     setLoading(true);
 
     axios
-      .get("http://localhost:3001/api/sectors")
+      .get(`${apiBaseUrl}/api/sectors`)
       .then((response) => {
         console.log("Sectors from backend:", response.data);
         if (Array.isArray(response.data)) {
@@ -61,7 +64,7 @@ const Classes = () => {
   const fetchClasses = (fieldId) => {
     setLoading(true);
     axios
-      .get(`http://localhost:3001/api/classes/field/${fieldId}`)
+      .get(`${apiBaseUrl}/api/classes/field/${fieldId}`)
       .then((response) => {
         setClasses(response.data);
         console.log("classes of this field :", response.data);
@@ -79,7 +82,7 @@ const Classes = () => {
     console.log("Fetching students...");
 
     axios
-      .get("http://localhost:3001/api/users/students", {
+      .get(`${apiBaseUrl}/api/users/students`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -99,7 +102,7 @@ const Classes = () => {
     setLoading(true);
     if (classId) {
       axios
-        .get(`http://localhost:3001/api/classes/${classId}/students`, {
+        .get(`${apiBaseUrl}/api/classes/${classId}/students`, {
           params: { cacheBuster: new Date().getTime() },
         })
         .then((response) => {
@@ -134,7 +137,7 @@ const Classes = () => {
   const handleAddSector = () => {
     if (newSectorName.trim() !== "") {
       axios
-        .post("http://localhost:3001/api/sectors", { name: newSectorName })
+        .post(`${apiBaseUrl}/api/sectors`, { name: newSectorName })
         .then((response) => {
           setNewSectorName("");
           fetchSectors();
@@ -148,7 +151,7 @@ const Classes = () => {
   const handleAddField = () => {
     if (selectedSector && newFieldName.trim() !== "") {
       axios
-        .post(`http://localhost:3001/api/fields/${selectedSector._id}`, {
+        .post(`${apiBaseUrl}/api/fields/${selectedSector._id}`, {
           name: newFieldName,
           sectorId: selectedSector._id,
         })
@@ -169,7 +172,7 @@ const Classes = () => {
   const handleAddClass = () => {
     if (selectedField && newClassName.trim() !== "") {
       axios
-        .post(`http://localhost:3001/api/classes/${selectedField._id}`, {
+        .post(`${apiBaseUrl}/api/classes/${selectedField._id}`, {
           name: newClassName,
           fieldId: selectedField._id,
         })
@@ -200,7 +203,7 @@ const Classes = () => {
 
   const handleDeleteSector = (sectorId) => {
     axios
-      .delete(`http://localhost:3001/api/sectors/${sectorId}`)
+      .delete(`${apiBaseUrl}/api/sectors/${sectorId}`)
       .then(() => {
         setSectors(sectors.filter((sector) => sector._id !== sectorId));
       })
@@ -211,7 +214,7 @@ const Classes = () => {
 
   const handleDeleteField = (fieldId) => {
     axios
-      .delete(`http://localhost:3001/api/fields/${fieldId}`)
+      .delete(`${apiBaseUrl}/api/fields/${fieldId}`)
       .then(() => {
         console.log("Field deleted successfully");
         setFields(fields.filter((field) => field._id !== fieldId));
@@ -223,7 +226,7 @@ const Classes = () => {
 
   const handleDeleteClass = (classId) => {
     axios
-      .delete(`http://localhost:3001/api/classes/${classId}`)
+      .delete(`${apiBaseUrl}/api/classes/${classId}`)
       .then(() => {
         setClasses(classes.filter((classItem) => classItem._id !== classId));
       })
@@ -262,7 +265,7 @@ const Classes = () => {
     );
 
     axios
-      .post(`http://localhost:3001/api/classes/${selectedClass._id}/students`, {
+      .post(`${apiBaseUrl}/api/classes/${selectedClass._id}/students`, {
         students: studentIds,
       })
       .then((response) => {
@@ -298,7 +301,7 @@ const Classes = () => {
     if (confirmDelete) {
       axios
         .delete(
-          `http://localhost:3001/api/classes/${selectedClass._id}/students/${studentId}`
+          `${apiBaseUrl}/api/classes/${selectedClass._id}/students/${studentId}`
         )
         .then(() => {
           console.log("Student removed from class successfully");

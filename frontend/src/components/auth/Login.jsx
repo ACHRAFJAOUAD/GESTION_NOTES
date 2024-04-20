@@ -14,7 +14,8 @@ const Login = () => {
   const nav = useNavigate();
   const { login } = useAuth();
 
-  const apiBaseUrl = "http://localhost:3001";
+  const apiBaseUrl =
+    "https://gestion-notes-backend.vercel.app" || "http://localhost:3001";
 
   console.log(apiBaseUrl);
 

@@ -28,9 +28,12 @@ const TeacherNotes = () => {
   const [noteType, setNoteType] = useState("Normal");
   const [isAddingNoteInProgress, setIsAddingNoteInProgress] = useState(false);
 
+  const apiBaseUrl =
+    "https://gestion-notes-backend.vercel.app" || "http://localhost:3001";
+
   useEffect(() => {
     axios
-      .get(`http://localhost:3001/api/subjects/teacher/${teacherId}`)
+      .get(`${apiBaseUrl}/api/subjects/teacher/${teacherId}`)
       .then((response) => {
         console.log("subject data:", response.data);
         setSubjects(response.data);
@@ -62,7 +65,7 @@ const TeacherNotes = () => {
     setStudents([]);
 
     axios
-      .get(`http://localhost:3001/api/classes/subject/${subjectId}`)
+      .get(`${apiBaseUrl}/api/classes/subject/${subjectId}`)
       .then((response) => {
         console.log("data classes:", response.data);
         setClasses(response.data);
@@ -117,7 +120,7 @@ const TeacherNotes = () => {
 
   const fetchStudentsOfClass = (classId) => {
     axios
-      .get(`http://localhost:3001/api/classes/${classId}/students`)
+      .get(`${apiBaseUrl}/api/classes/${classId}/students`)
       .then((response) => {
         setStudents(response.data);
         setSelectedClass(classId);
@@ -137,9 +140,7 @@ const TeacherNotes = () => {
     console.log("Subject ID in fetchNotesForStudent:", subjectId);
 
     axios
-      .get(
-        `http://localhost:3001/api/notes/student/${studentId}/subject/${subjectId}`
-      )
+      .get(`${apiBaseUrl}/api/notes/student/${studentId}/subject/${subjectId}`)
       .then((response) => {
         console.log("Notes students :", response.data);
 
@@ -213,8 +214,8 @@ const TeacherNotes = () => {
     console.log("Score before sending request:", notes);
 
     const apiUrl = editMode
-      ? `http://localhost:3001/api/notes/${editNoteId}`
-      : "http://localhost:3001/api/notes";
+      ? `${apiBaseUrl}/api/notes/${editNoteId}`
+      : `${apiBaseUrl}/api/notes`;
 
     axios({
       method: editMode ? "put" : "post",
@@ -306,7 +307,7 @@ const TeacherNotes = () => {
 
     if (confirmDelete) {
       axios
-        .delete(`http://localhost:3001/api/notes/${noteId}`)
+        .delete(`${apiBaseUrl}/api/notes/${noteId}`)
         .then((response) => {
           console.log("Note deleted successfully");
           fetchNotesForStudent(selectedStudent, selectedSubject._id);

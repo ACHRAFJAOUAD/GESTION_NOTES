@@ -13,6 +13,9 @@ const StudentCrud = () => {
   const [editStudentId, setEditStudentId] = useState("");
   const [loading, setLoading] = useState(true);
 
+  const apiBaseUrl =
+    "https://gestion-notes-backend.vercel.app" || "http://localhost:3001";
+
   useEffect(() => {
     fetchStudents();
   }, []);
@@ -20,7 +23,7 @@ const StudentCrud = () => {
   const fetchStudents = () => {
     setLoading(true);
     axios
-      .get("http://localhost:3001/api/users/students")
+      .get(`${apiBaseUrl}/api/users/students`)
       .then((response) => {
         setStudents(response.data);
         setLoading(false);
@@ -57,7 +60,7 @@ const StudentCrud = () => {
 
     if (confirmDelete) {
       axios
-        .delete(`http://localhost:3001/api/users/${studentId}`)
+        .delete(`${apiBaseUrl}/api/users/${studentId}`)
         .then((response) => {
           console.log("Student deleted successfully");
           fetchStudents();
@@ -80,7 +83,7 @@ const StudentCrud = () => {
 
     if (editMode) {
       axios
-        .put(`http://localhost:3001/api/users/${editStudentId}`, newStudent)
+        .put(`${apiBaseUrl}/api/users/${editStudentId}`, newStudent)
         .then((response) => {
           console.log("Student updated successfully");
           fetchStudents();
@@ -95,7 +98,7 @@ const StudentCrud = () => {
         });
     } else {
       axios
-        .post("http://localhost:3001/api/users", {
+        .post(`${apiBaseUrl}/api/users`, {
           ...newStudent,
           role: "student",
         })

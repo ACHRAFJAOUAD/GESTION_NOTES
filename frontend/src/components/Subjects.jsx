@@ -16,6 +16,9 @@ const Subjects = () => {
   const [classList, setClassList] = useState([]);
   const [teacherList, setTeacherList] = useState([]);
 
+  const apiBaseUrl =
+    "https://gestion-notes-backend.vercel.app" || "http://localhost:3001";
+
   useEffect(() => {
     fetchSubjects();
     fetchClasses();
@@ -25,7 +28,7 @@ const Subjects = () => {
   const fetchSubjects = () => {
     setLoading(true);
     axios
-      .get("http://localhost:3001/api/subjects")
+      .get(`${apiBaseUrl}/api/subjects`)
       .then((response) => {
         if (response.data) {
           console.log("Data received:", response.data);
@@ -43,7 +46,7 @@ const Subjects = () => {
 
   const fetchClasses = () => {
     axios
-      .get("http://localhost:3001/api/classes")
+      .get(`${apiBaseUrl}/api/classes`)
       .then((response) => {
         setClassList(response.data);
         console.log("Class List:", response.data);
@@ -55,7 +58,7 @@ const Subjects = () => {
 
   const fetchTeachers = () => {
     axios
-      .get("http://localhost:3001/api/users/teachers", {
+      .get(`${apiBaseUrl}/api/users/teachers`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -79,7 +82,7 @@ const Subjects = () => {
       console.log("Submitting new subject:", newSubject);
 
       axios
-        .post("http://localhost:3001/api/subjects", newSubject)
+        .post(`${apiBaseUrl}/api/subjects`, newSubject)
         .then((response) => {
           fetchSubjects();
           setShowForm(false);
@@ -114,7 +117,7 @@ const Subjects = () => {
 
   const handleUpdateSubject = () => {
     axios
-      .put(`http://localhost:3001/api/subjects/${editSubjectId}`, newSubject)
+      .put(`${apiBaseUrl}/api/subjects/${editSubjectId}`, newSubject)
       .then((response) => {
         console.log("Subject updated successfully");
         fetchSubjects();
@@ -142,7 +145,7 @@ const Subjects = () => {
 
     if (confirmDelete) {
       axios
-        .delete(`http://localhost:3001/api/subjects/${subjectId}`)
+        .delete(`${apiBaseUrl}/api/subjects/${subjectId}`)
         .then((response) => {
           console.log("Subject deleted successfully");
           fetchSubjects();

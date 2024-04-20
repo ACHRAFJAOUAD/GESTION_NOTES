@@ -22,10 +22,13 @@ const Profile = () => {
   const [imageFileUploadProgress, setImageFileUploadProgress] = useState(null);
   const [imageFileUploading, setImageFileUploading] = useState(false);
 
+  const apiBaseUrl =
+    "https://gestion-notes-backend.vercel.app" || "http://localhost:3001";
+
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get("http://localhost:3001/api/users", {
+        const response = await axios.get(`${apiBaseUrl}/api/users`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
@@ -51,20 +54,18 @@ const Profile = () => {
   const handleImageChange = async (e) => {
     console.log("handleImageChange function called");
     const file = e.target.files[0];
-    console.log("Selected file:", file); // Log the selected file
+    console.log("Selected file:", file);
 
     if (file) {
       setImageFile(file);
 
-      // Create a new FormData object
       const formData = new FormData();
-      // Append the file to the FormData object with the key 'picture'
       formData.append("picture", file, file.name);
       console.log("Form Data:", formData);
       try {
         console.log("User ID:", user.id);
-        console.log("Form Data:", formData); // Make sure formData is populated
-        const requestUrl = `http://localhost:3001/api/users/${user.id}/picture`;
+        console.log("Form Data:", formData);
+        const requestUrl = `${apiBaseUrl}/api/users/${user.id}/picture`;
         console.log("Request URL:", requestUrl);
 
         const response = await axios.put(requestUrl, formData, {
@@ -76,15 +77,15 @@ const Profile = () => {
             const progress = Math.round(
               (progressEvent.loaded / progressEvent.total) * 100
             );
-            console.log("Upload progress:", progress); // Log the upload progress
+            console.log("Upload progress:", progress);
             setImageFileUploadProgress(progress);
           },
         });
         console.log("Image upload response:", response);
-        setImageFileUrl(response.data.user.pictureUrl); // Update the image file URL
+        setImageFileUrl(response.data.user.pictureUrl);
         setFormData((prevFormData) => ({
           ...prevFormData,
-          pictureUrl: response.data.user.pictureUrl, // Update the pictureUrl in formData
+          pictureUrl: response.data.user.pictureUrl,
         }));
       } catch (error) {
         console.error("Error uploading profile picture:", error);
@@ -107,15 +108,11 @@ const Profile = () => {
 
   const updateUserProfile = async () => {
     try {
-      const response = await axios.put(
-        "http://localhost:3001/api/users",
-        formData,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
+      const response = await axios.put(`${apiBaseUrl}/api/users`, formData, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
 
       console.log("Profile updated:", response.data.message);
     } catch (error) {

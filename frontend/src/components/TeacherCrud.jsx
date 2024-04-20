@@ -13,6 +13,9 @@ const TeacherCrud = () => {
   const [editTeacherId, setEditTeacherId] = useState("");
   const [loading, setLoading] = useState(true);
 
+  const apiBaseUrl =
+    "https://gestion-notes-backend.vercel.app" || "http://localhost:3001";
+
   useEffect(() => {
     fetchTeachers();
   }, []);
@@ -20,7 +23,7 @@ const TeacherCrud = () => {
   const fetchTeachers = () => {
     setLoading(true);
     axios
-      .get("http://localhost:3001/api/users/teachers")
+      .get(`${apiBaseUrl}/api/users/teachers`)
       .then((response) => {
         setTeachers(response.data);
         setLoading(false);
@@ -57,7 +60,7 @@ const TeacherCrud = () => {
 
     if (confirmDelete) {
       axios
-        .delete(`http://localhost:3001/api/users/${teacherId}`)
+        .delete(`${apiBaseUrl}/api/users/${teacherId}`)
         .then((response) => {
           console.log("Teacher deleted successfully");
           fetchTeachers();
@@ -80,7 +83,7 @@ const TeacherCrud = () => {
 
     if (editMode) {
       axios
-        .put(`http://localhost:3001/api/users/${editTeacherId}`, newTeacher)
+        .put(`${apiBaseUrl}/api/users/${editTeacherId}`, newTeacher)
         .then((response) => {
           console.log("Teacher updated successfully");
           fetchTeachers();
@@ -95,7 +98,7 @@ const TeacherCrud = () => {
         });
     } else {
       axios
-        .post("http://localhost:3001/api/users", {
+        .post(`${apiBaseUrl}/api/users`, {
           ...newTeacher,
           role: "teacher",
         })
