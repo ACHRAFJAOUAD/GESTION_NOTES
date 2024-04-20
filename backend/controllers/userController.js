@@ -59,7 +59,6 @@ exports.uploadProfilePicture = asyncHandler(async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    // Update the pictureUrl property of the user
     user.pictureUrl = filename;
     await user.save();
 
