@@ -165,7 +165,8 @@ const Profile = () => {
             src={
               formData.pictureUrl
                 ? `http://localhost:3001/api/images/${formData.pictureUrl}` ||
-                  `https://gestion-notes-backend.vercel.app/api/images/${formData.pictureUrl}`
+                  `https://gestion-notes-backend.vercel.app/api/images/${formData.pictureUrl}` ||
+                  "/user.png"
                 : "/user.png"
             }
             alt="user_picture"
