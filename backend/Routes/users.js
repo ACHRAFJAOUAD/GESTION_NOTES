@@ -14,8 +14,16 @@ router.get(
   // authMiddleware.verifyToken,
   userController.getTeachersByRole
 );
-router.get("/", authMiddleware.verifyToken, userController.getUserRole);
-router.put("/", authMiddleware.verifyToken, userController.updateUserProfile);
+router.get(
+  "/",
+  //  authMiddleware.verifyToken,
+  userController.getUserRole
+);
+router.put(
+  "/",
+  //  authMiddleware.verifyToken,
+  userController.updateUserProfile
+);
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -29,7 +37,7 @@ const upload = multer({ storage: storage });
 
 router.put(
   "/:id/picture",
-  authMiddleware.verifyToken,
+  // authMiddleware.verifyToken,
   upload.single("picture"),
   userController.uploadProfilePicture
 );
