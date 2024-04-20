@@ -23,7 +23,7 @@ const Profile = () => {
   const [imageFileUploading, setImageFileUploading] = useState(false);
 
   const apiBaseUrl =
-    "http://localhost:3001" || "https://gestion-notes-backend.vercel.app";
+    "https://gestion-notes-backend.vercel.app" || "http://localhost:3001";
 
   useEffect(() => {
     const fetchUserData = async () => {
