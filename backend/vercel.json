@@ -3,6 +3,10 @@
   "builds": [{ "src": "*.js", "use": "@vercel/node" }],
   "routes": [
     {
+      "src": "/api/images/(.*)",
+      "dest": "/public/uploads/profile-pictures/$1"
+    },
+    {
       "src": "/(.*)",
       "dest": "/"
     }
