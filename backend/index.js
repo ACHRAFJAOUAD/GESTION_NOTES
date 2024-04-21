@@ -19,18 +19,6 @@ require("./config/dbConnect")();
 // Create Express app
 const app = express();
 
-// Allow requests from specified origins
-const allowedOrigins = ["https://gestion-notes-frontend.vercel.app"];
-const corsOptions = {
-  origin: (origin, callback) => {
-    if (allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-};
-
 // Create directory for profile pictures if it doesn't exist
 const profilePicturesDir = "public/uploads/profile-pictures";
 if (!fs.existsSync(profilePicturesDir)) {
@@ -41,7 +29,7 @@ if (!fs.existsSync(profilePicturesDir)) {
 }
 
 // Middleware
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(express.json());
 app.use("/api/images", express.static("public/uploads/profile-pictures"));
 // Routes
