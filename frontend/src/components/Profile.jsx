@@ -12,13 +12,11 @@ const Profile = () => {
     name: user.name,
     email: user.email,
     phone: user.phone || "",
-    pictureUrl: user.pictureUrl || "",
+    pictureUrl: user.pictureUrl || "/user.png",
   });
   console.log(formData);
   const [imageFile, setImageFile] = useState(null);
-  const [imageFileUrl, setImageFileUrl] = useState(
-    user.pictureUrl || "/user.png"
-  );
+
   const [imageFileUploadProgress, setImageFileUploadProgress] = useState(null);
   const [imageFileUploading, setImageFileUploading] = useState(false);
 
@@ -82,7 +80,6 @@ const Profile = () => {
           },
         });
         console.log("Image upload response:", response);
-        setImageFileUrl(response.data.user.pictureUrl);
         setFormData((prevFormData) => ({
           ...prevFormData,
           pictureUrl: response.data.user.pictureUrl,
