@@ -63,22 +63,24 @@ const Profile = () => {
       try {
         console.log("User ID:", user.id);
         console.log("Form Data:", formData);
-        const requestUrl = `${apiBaseUrl}/api/users/${user.id}/picture`;
-        console.log("Request URL:", requestUrl);
 
-        const response = await axios.put(requestUrl, formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-          onUploadProgress: (progressEvent) => {
-            const progress = Math.round(
-              (progressEvent.loaded / progressEvent.total) * 100
-            );
-            console.log("Upload progress:", progress);
-            setImageFileUploadProgress(progress);
-          },
-        });
+        const response = await axios.put(
+          `${apiBaseUrl}/api/users/${user.id}/picture`,
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+            onUploadProgress: (progressEvent) => {
+              const progress = Math.round(
+                (progressEvent.loaded / progressEvent.total) * 100
+              );
+              console.log("Upload progress:", progress);
+              setImageFileUploadProgress(progress);
+            },
+          }
+        );
         console.log("Image upload response:", response);
         setFormData((prevFormData) => ({
           ...prevFormData,
@@ -161,8 +163,7 @@ const Profile = () => {
           <img
             src={
               formData.pictureUrl
-                ? `https://gestion-notes-backend.vercel.app/api/images/${formData.pictureUrl}` ||
-                  `http://localhost:3001/api/images/${formData.pictureUrl}`
+                ? `${apiBaseUrl}/api/images/${formData.pictureUrl}`
                 : "/user.png"
             }
             alt="user_picture"

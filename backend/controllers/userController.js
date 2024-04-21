@@ -40,6 +40,10 @@ exports.updateUserProfile = asyncHandler(async (req, res) => {
 
 exports.uploadProfilePicture = asyncHandler(async (req, res) => {
   try {
+    console.log(
+      `Received request to upload profile picture for user ${req.params.id}`
+    );
+
     const { id } = req.params;
     const { filename } = req.file;
 
@@ -47,20 +51,16 @@ exports.uploadProfilePicture = asyncHandler(async (req, res) => {
       return res.status(400).json({ message: "No picture uploaded" });
     }
 
-    const uploadPath = "public/profile-pictures";
-
-    if (!fs.existsSync(uploadPath)) {
-      fs.mkdirSync(uploadPath, { recursive: true });
-    }
-
     const user = await User.findById(id);
 
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
+    console.log(`User ${id} found, updating profile picture`);
 
     user.pictureUrl = filename;
     await user.save();
+    console.log(`Profile picture uploaded successfully for user ${id}`);
 
     res
       .status(200)

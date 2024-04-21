@@ -8,6 +8,7 @@ const fieldRoutes = require("./Routes/fields");
 const classRoutes = require("./Routes/classes");
 const subjectRoutes = require("./Routes/subjects");
 const noteRoutes = require("./Routes/notes");
+const fs = require("fs");
 
 // Load environment variables
 dotenv.config();
@@ -18,10 +19,19 @@ require("./config/dbConnect")();
 // Create Express app
 const app = express();
 
+// Create directory for profile pictures if it doesn't exist
+const profilePicturesDir = "public/uploads/profile-pictures";
+if (!fs.existsSync(profilePicturesDir)) {
+  fs.mkdirSync(profilePicturesDir, { recursive: true });
+  console.log(`Directory ${profilePicturesDir} created successfully.`);
+} else {
+  console.log(`Directory ${profilePicturesDir} already exists.`);
+}
+
 // Middleware
 app.use(cors());
 app.use(express.json());
-app.use("/api/images", express.static("public/profile-pictures"));
+app.use("/api/images", express.static("public/uploads/profile-pictures"));
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);

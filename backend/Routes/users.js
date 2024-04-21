@@ -28,15 +28,25 @@ router.put("/", authMiddleware.verifyToken, userController.updateUserProfile);
 // Multer storage configuration for handling profile picture uploads
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "public/profile-pictures");
+    cb(null, "public/uploads/profile-pictures");
   },
   filename: function (req, file, cb) {
     cb(null, file.originalname);
   },
 });
-
-// Multer middleware for handling file uploads
-const upload = multer({ storage: storage });
+const upload = multer({
+  storage: storage,
+  limits: {
+    fileSize: 10 * 1024 * 1024,
+  },
+  fileFilter: function (req, file, cb) {
+    // Allow only image files
+    if (!file.mimetype.startsWith("image")) {
+      return cb(new Error("Only image files are allowed!"), false);
+    }
+    cb(null, true);
+  },
+});
 
 // Route to handle profile picture upload for a user with the specified ID
 router.put(
