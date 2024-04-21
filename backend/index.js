@@ -21,7 +21,7 @@ const app = express();
 // Middleware
 app.use(cors());
 app.use(express.json());
-app.use("/api/images", express.static("public/uploads/profile-pictures"));
+app.use("/api/images", express.static("public/profile-pictures"));
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);

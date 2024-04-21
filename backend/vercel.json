@@ -4,7 +4,7 @@
   "routes": [
     {
       "src": "/api/images/(.*)",
-      "dest": "/public/uploads/profile-pictures/$1"
+      "dest": "/public/profile-pictures/$1"
     },
     {
       "src": "/(.*)",

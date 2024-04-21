@@ -28,7 +28,7 @@ router.put("/", authMiddleware.verifyToken, userController.updateUserProfile);
 // Multer storage configuration for handling profile picture uploads
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "public/uploads/profile-pictures");
+    cb(null, "public/profile-pictures");
   },
   filename: function (req, file, cb) {
     cb(null, file.originalname);
