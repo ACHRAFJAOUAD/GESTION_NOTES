@@ -3,8 +3,10 @@ import { useAuth } from "../contexts/AuthContext";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import axios from "axios";
+import apiBaseUrl from '../server/server.js'
 
 const Profile = () => {
+  // console.log(apiBaseUrl)
   const { user } = useAuth();
   const filePickerRef = useRef();
   const [formData, setFormData] = useState({
@@ -20,8 +22,6 @@ const Profile = () => {
   const [imageFileUploadProgress, setImageFileUploadProgress] = useState(null);
   const [imageFileUploading, setImageFileUploading] = useState(false);
 
-  const apiBaseUrl =
-    "https://gestion-notes-backend.vercel.app" || "http://localhost:3001";
 
   useEffect(() => {
     const fetchUserData = async () => {

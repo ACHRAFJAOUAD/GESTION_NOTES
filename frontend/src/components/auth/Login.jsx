@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Lottie from "lottie-react";
 import axios from "axios";
-
+import apiBaseUrl from "../../server/server.js";
 import LoginData from "../../animation/login.json";
 import { useAuth } from "../../contexts/AuthContext.jsx";
 import { useNavigate } from "react-router-dom";
@@ -13,9 +13,6 @@ const Login = () => {
 
   const nav = useNavigate();
   const { login } = useAuth();
-
-  const apiBaseUrl =
-    "https://gestion-notes-backend.vercel.app" || "http://localhost:3001";
 
   console.log(apiBaseUrl);
 
