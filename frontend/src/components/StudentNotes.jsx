@@ -113,7 +113,7 @@ const StudentNotes = () => {
                     <th className="px-4 py-2">Note 4</th>
 
                     <td className="px-4 py-2">EFM</td>
-                    <th className="px-4 py-2">Average Note</th>
+                    <th className="px-4 py-2">Subject Note</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -130,20 +130,68 @@ const StudentNotes = () => {
                       <td className="border px-4 py-2">{note.specialNote}</td>
                       <td className="border px-4 py-2">
                         {/* Calculate and display the average note */}
-                        {notes.reduce((acc, note) => {
-                          if (note.noteType === "Special") {
-                            return acc + note.specialNote;
-                          } else {
-                            return (
-                              acc +
-                              note.normalNotes.reduce(
-                                (sum, val) => sum + val,
+                        {notes.length > 0
+                          ? (() => {
+                              // Calculate the sum of normal notes excluding null values
+                              const sumNormalNotes = notes.reduce(
+                                (acc, note) => {
+                                  if (note.normalNotes) {
+                                    const validNotes = note.normalNotes.filter(
+                                      (val) => val !== null
+                                    );
+                                    return (
+                                      acc +
+                                      validNotes.reduce(
+                                        (sum, val) => sum + val,
+                                        0
+                                      )
+                                    );
+                                  } else {
+                                    return acc;
+                                  }
+                                },
                                 0
-                              )
-                            );
-                          }
-                        }, 0) / notes.length}
-                      </td>{" "}
+                              );
+
+                              // Calculate the total number of non-null normal notes
+                              const totalNormalNotesCount = notes.reduce(
+                                (acc, note) => {
+                                  if (note.normalNotes) {
+                                    return (
+                                      acc +
+                                      note.normalNotes.filter(
+                                        (val) => val !== null
+                                      ).length
+                                    );
+                                  } else {
+                                    return acc;
+                                  }
+                                },
+                                0
+                              );
+
+                              // Calculate the average of normal notes
+                              const averageNormalNotes =
+                                totalNormalNotesCount > 0
+                                  ? sumNormalNotes / totalNormalNotesCount
+                                  : 0;
+
+                              // Calculate the total sum including special notes
+                              const totalSum =
+                                averageNormalNotes +
+                                notes.reduce(
+                                  (acc, note) => acc + (note.specialNote || 0),
+                                  0
+                                );
+
+                              // Calculate the average by dividing the total sum by 3
+                              const average = totalSum / 3;
+
+                              // Return the average formatted to 2 decimal places
+                              return average.toFixed(2);
+                            })()
+                          : 0}
+                      </td>
                     </tr>
                   ))}
                 </tbody>
