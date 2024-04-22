@@ -7,6 +7,7 @@ import {
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 import { useAuth } from "../contexts/AuthContext";
+import apiBaseUrl from "../server/server";
 
 const TeacherNotes = () => {
   const { user } = useAuth();
@@ -27,9 +28,6 @@ const TeacherNotes = () => {
   const [specialNote, setSpecialNote] = useState("");
   const [noteType, setNoteType] = useState("Normal");
   const [isAddingNoteInProgress, setIsAddingNoteInProgress] = useState(false);
-
-  const apiBaseUrl =
-    "https://gestion-notes-backend.vercel.app" || "http://localhost:3001";
 
   useEffect(() => {
     axios

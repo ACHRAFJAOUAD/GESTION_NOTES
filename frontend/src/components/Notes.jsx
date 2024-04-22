@@ -7,6 +7,8 @@ import {
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 
+import apiBaseUrl from "../server/server.js";
+
 const Notes = () => {
   const [subjects, setSubjects] = useState([]);
   const [selectedSubject, setSelectedSubject] = useState(null);
@@ -23,9 +25,6 @@ const Notes = () => {
   const [specialNote, setSpecialNote] = useState("");
   const [noteType, setNoteType] = useState("Normal");
   const [isAddingNoteInProgress, setIsAddingNoteInProgress] = useState(false);
-
-  const apiBaseUrl =
-    "https://gestion-notes-backend.vercel.app" || "http://localhost:3001";
 
   useEffect(() => {
     axios

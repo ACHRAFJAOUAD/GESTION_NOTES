@@ -4,6 +4,8 @@ import { useAuth } from "../contexts/AuthContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
+import apiBaseUrl from "../server/server.js";
+
 const StudentNotes = () => {
   const { user } = useAuth();
 
@@ -14,9 +16,6 @@ const StudentNotes = () => {
   const [loading, setLoading] = useState(false);
   const [loadingNotes, setLoadingNotes] = useState(false);
   const [noNotes, setNoNotes] = useState(false);
-
-  const apiBaseUrl =
-    "https://gestion-notes-backend.vercel.app" || "http://localhost:3001";
 
   useEffect(() => {
     const fetchStudentSubjects = async () => {

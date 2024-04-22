@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import apiBaseUrl from "../server/server";
 
 const TeacherCrud = () => {
   const [teachers, setTeachers] = useState([]);
@@ -12,9 +13,6 @@ const TeacherCrud = () => {
   const [editMode, setEditMode] = useState(false);
   const [editTeacherId, setEditTeacherId] = useState("");
   const [loading, setLoading] = useState(true);
-
-  const apiBaseUrl =
-    "https://gestion-notes-backend.vercel.app" || "http://localhost:3001";
 
   useEffect(() => {
     fetchTeachers();

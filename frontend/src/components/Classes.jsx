@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowCircleLeft, faTrash } from "@fortawesome/free-solid-svg-icons";
+import apiBaseUrl from "../server/server.js";
 
 const Classes = () => {
   const [sectors, setSectors] = useState([]);
@@ -20,9 +21,6 @@ const Classes = () => {
   const [selectedStudents, setSelectedStudents] = useState([]);
   const [addingStudent, setAddingStudent] = useState(false);
   const [loading, setLoading] = useState(true);
-
-  const apiBaseUrl =
-    "https://gestion-notes-backend.vercel.app" || "http://localhost:3001";
 
   useEffect(() => {
     fetchSectors();
