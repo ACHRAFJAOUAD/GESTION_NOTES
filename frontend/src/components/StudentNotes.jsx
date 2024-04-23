@@ -43,7 +43,7 @@ const StudentNotes = () => {
     try {
       setLoadingNotes(true);
       const response = await axios.get(
-        `${apiBaseUrl}/api/notes/subject/${subjectId}`
+        `${apiBaseUrl}/api/notes/student/${studentId}/subject/${subjectId}`
       );
       const notesData = response.data;
       setNotes(notesData);
